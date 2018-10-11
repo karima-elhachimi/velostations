@@ -1,6 +1,7 @@
 package be.ap.karima.velostation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class VeloRecyclerAdaper extends RecyclerView.Adapter<VeloRecyclerAdaper.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Station velostation = stationList.get(position);
         holder.myNaamTextView.setText(velostation.getName());
+        holder.currentPosition = position;
     }
 
 
@@ -42,10 +44,24 @@ public class VeloRecyclerAdaper extends RecyclerView.Adapter<VeloRecyclerAdaper.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView myNaamTextView;
+        public int currentPosition;
 
         public ViewHolder(View itemView) {
             super(itemView);
             myNaamTextView = (TextView) itemView.findViewById(R.id.naam_textview);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goToMapActivity();
+                }
+            });
+
+        }
+
+        public void goToMapActivity() {
+            Intent intent = new Intent(context, VeloMapActivity.class);
+            intent.putExtra("Position", currentPosition+"");
+            context.startActivity(intent);
         }
     }
 }
