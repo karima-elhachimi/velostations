@@ -40,4 +40,12 @@ public class VeloMapActivity extends AppCompatActivity {
 
         map.onResume();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+
+    }
 }
