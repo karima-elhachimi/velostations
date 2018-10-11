@@ -6,14 +6,14 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MyDataManager {
 
 
     public static JsonHandler jsonHdlr;
     private static MyDataManager instance = null;
-    private static ArrayList<Station> stationList;
+    private static List<Station> stationList;
 
 
     public static MyDataManager getInstance(Context context) {
@@ -40,9 +40,16 @@ public class MyDataManager {
                 Station velo = new Station(lat, lng, name);
                 Log.i(TAG + i, velo.toString());
 
+                stationList.add(velo);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    public static List<Station> getStationList(){
+        return stationList;
+    }
+
+
 }
