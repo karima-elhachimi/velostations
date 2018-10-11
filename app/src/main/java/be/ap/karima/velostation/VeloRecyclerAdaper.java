@@ -31,8 +31,9 @@ public class VeloRecyclerAdaper extends RecyclerView.Adapter<VeloRecyclerAdaper.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Station velostation = stationList.get(position);
-        holder.myNaamTextView.setText(velostation.getName());
         holder.currentPosition = position;
+        holder.myNaamTextView.setText(velostation.getName());
+
     }
 
 
@@ -52,16 +53,14 @@ public class VeloRecyclerAdaper extends RecyclerView.Adapter<VeloRecyclerAdaper.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    goToMapActivity();
+                    Intent intent = new Intent(context, VeloMapActivity.class);
+                    intent.putExtra("pos", ""+currentPosition);
+                    context.startActivity(intent);
                 }
             });
 
         }
 
-        public void goToMapActivity() {
-            Intent intent = new Intent(context, VeloMapActivity.class);
-            intent.putExtra("Position", currentPosition+"");
-            context.startActivity(intent);
-        }
+
     }
 }

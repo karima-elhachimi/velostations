@@ -2,14 +2,17 @@ package be.ap.karima.velostation;
 
 public class Station {
 
-    private double Latitude;
-    private double Longitude;
+    public double Latitude;
+    public double Longitude;
     private String Name;
 
-    public Station(double lat, double longi, String name){
-        this.Latitude = lat;
-        this.Latitude = longi;
+    public Station(double mlatitude, double mlongitude, String name){
+        this.Latitude = mlatitude;
+        this.Latitude = mlongitude;
         this.Name = name;
+    }
+    public Station(){
+
     }
 
     public double getLatitude() {

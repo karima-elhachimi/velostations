@@ -14,13 +14,24 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
+import org.osmdroid.views.overlay.mylocation.SimpleLocationOverlay;
+
+import java.util.ArrayList;
 
 public class VeloMapActivity extends AppCompatActivity {
 
     private MapView map = null;
     private MyDataManager dm = MyDataManager.getInstance(this);
-    public Intent intent = getIntent();
+    public Intent my_intent;
     public Station geselecteerdeVelo;
+
+//todo: voeg marker of icon toe aan map
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +43,18 @@ public class VeloMapActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intent = new Intent(VeloMapActivity.this , Velolist.class);
-               startActivity(intent);
+               Intent new_intent = new Intent(VeloMapActivity.this , Velolist.class);
+               startActivity(new_intent);
             }
         });
 
+        my_intent = getIntent();
         map = (MapView) findViewById(R.id.mapview);
 
-        int position = Integer.parseInt(intent.getStringExtra("Position"));
-        geselecteerdeVelo = dm.getStationList().get(position);
+        //todo: fout hier uitzoeken
+        //todo: permissions vragen
+        int position = Integer.parseInt(my_intent.getStringExtra("pos"));
+        geselecteerdeVelo = dm.getVeloStation(position);
         Log.i("VELO ", geselecteerdeVelo.toString());
         setMapOptions(geselecteerdeVelo);
 
@@ -63,9 +77,11 @@ public class VeloMapActivity extends AppCompatActivity {
 
     public void setMapOptions(Station velo){
 
+        double lati = velo.getLatitude();
+        double longi = velo.getLongitude();
         map.setTileSource(TileSourceFactory.MAPNIK);
         IMapController mapController = map.getController();
-        mapController.setZoom(9);
+        mapController.setZoom(4);
         GeoPoint startPoint = new GeoPoint(velo.getLatitude(), velo.getLongitude());
         mapController.setCenter(startPoint);
     }

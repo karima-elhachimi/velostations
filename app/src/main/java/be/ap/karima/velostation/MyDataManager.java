@@ -36,17 +36,22 @@ public class MyDataManager {
 
             try {
                 JSONObject jsonItem = (JSONObject) jsonHdlr.jArray.getJSONObject(i);
-                double lat = (double) jsonItem.get("point_lat");
-                double lng = (double) jsonItem.get("point_lng");
+                double longi = Double.parseDouble(jsonItem.get("point_lng").toString());
+                double lati = Double.parseDouble(jsonItem.get("point_lat").toString());
                 String name = jsonItem.get("naam").toString();
-                Station velo = new Station(lat, lng, name);
-                Log.i(TAG + i, velo.toString());
+                Station velo = new Station(lati, longi, name);
+                velo.Latitude = lati;
+                velo.Longitude = longi;
+                Log.i(TAG + i, velo.toString() + "lat: "+velo.getLatitude() +" long: "+velo.getLongitude());
 
                 stationList.add(i, velo);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+    public static Station getVeloStation(int pos) {
+        return stationList.get(pos);
     }
 
     public static List<Station> getStationList(){
