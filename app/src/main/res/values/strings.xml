@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Velostation</string>
     <string name="title_activity_velo_map">VeloMapActivity</string>
+    <string name="title_activity_velo_google_maps">Map</string>
 </resources>

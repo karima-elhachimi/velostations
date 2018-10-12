@@ -1,6 +1,7 @@
 package be.ap.karima.velostation;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.mylocation.SimpleLocationOverlay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VeloMapActivity extends AppCompatActivity {
 
@@ -29,6 +31,9 @@ public class VeloMapActivity extends AppCompatActivity {
     private MyDataManager dm = MyDataManager.getInstance(this);
     public Intent my_intent;
     public Station geselecteerdeVelo;
+    public List<OverlayItem> mItems;
+
+    public SimpleLocationOverlay myOverlay;
 
 //todo: voeg marker of icon toe aan map
 
@@ -50,6 +55,8 @@ public class VeloMapActivity extends AppCompatActivity {
 
         my_intent = getIntent();
         map = (MapView) findViewById(R.id.mapview);
+        mItems = new ArrayList<OverlayItem>();
+        myOverlay = new SimpleLocationOverlay(this);
 
         //todo: fout hier uitzoeken
         //todo: permissions vragen
@@ -64,6 +71,7 @@ public class VeloMapActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
         map.onResume();
     }
 
@@ -77,12 +85,19 @@ public class VeloMapActivity extends AppCompatActivity {
 
     public void setMapOptions(Station velo){
 
+
+
+
         double lati = velo.getLatitude();
         double longi = velo.getLongitude();
         map.setTileSource(TileSourceFactory.MAPNIK);
         IMapController mapController = map.getController();
-        mapController.setZoom(4);
+        mapController.setZoom(20);
         GeoPoint startPoint = new GeoPoint(velo.getLatitude(), velo.getLongitude());
+        //OverlayItem olItem = new OverlayItem("Here", "SampleDescription", startPoint);
+        myOverlay.setLocation(startPoint);
+       // map.getOverlays().add(myOverlay);
+
         mapController.setCenter(startPoint);
     }
 

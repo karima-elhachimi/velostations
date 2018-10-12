@@ -16,6 +16,7 @@ public class VeloRecyclerAdaper extends RecyclerView.Adapter<VeloRecyclerAdaper.
     private final LayoutInflater layoutInflater;
     private final List<Station> stationList;
 
+
     public VeloRecyclerAdaper(Context context, List<Station> stationList) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
@@ -53,7 +54,7 @@ public class VeloRecyclerAdaper extends RecyclerView.Adapter<VeloRecyclerAdaper.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, VeloMapActivity.class);
+                    Intent intent = new Intent(context, VeloGoogleMapsActivity.class);
                     intent.putExtra("pos", ""+currentPosition);
                     context.startActivity(intent);
                 }
