@@ -37,9 +37,7 @@ public class VeloGoogleMapsActivity extends FragmentActivity implements OnMapRea
         geselecteerdeVelo = dm.getVeloStation(position);
         Log.i("VELO ", geselecteerdeVelo.toString());
 
-        LatLng veloLL = new LatLng(geselecteerdeVelo.getLatitude(), geselecteerdeVelo.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(veloLL).title(geselecteerdeVelo.getName()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(veloLL));
+
     }
 
 
@@ -60,5 +58,8 @@ public class VeloGoogleMapsActivity extends FragmentActivity implements OnMapRea
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng veloLL = new LatLng(geselecteerdeVelo.getLatitude(), geselecteerdeVelo.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(veloLL).title(geselecteerdeVelo.getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(veloLL, 16.0f));
     }
 }
