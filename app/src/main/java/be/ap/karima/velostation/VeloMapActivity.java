@@ -35,7 +35,7 @@ public class VeloMapActivity extends AppCompatActivity {
 
     public SimpleLocationOverlay myOverlay;
 
-//todo: voeg marker of icon toe aan map
+//todo: voeg marker of icon toe aan map - done
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class VeloMapActivity extends AppCompatActivity {
         mItems = new ArrayList<OverlayItem>();
         myOverlay = new SimpleLocationOverlay(this);
 
-        //todo: fout hier uitzoeken
+        //todo: fout hier uitzoeken - done
         //todo: permissions vragen
         int position = Integer.parseInt(my_intent.getStringExtra("pos"));
         geselecteerdeVelo = dm.getVeloStation(position);
