@@ -1,6 +1,7 @@
 package be.ap.karima.velostation;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -15,6 +16,8 @@ public class MyDataManager {
     public static JsonHandler jsonHdlr;
     private static MyDataManager instance = null;
     private static List<Station> stationList;
+
+
 
 
     public static MyDataManager getInstance(Context context) {
@@ -45,10 +48,13 @@ public class MyDataManager {
                 Log.i(TAG + i, velo.toString() + "lat: "+velo.getLatitude() +" long: "+velo.getLongitude());
 
                 stationList.add(i, velo);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
+
     }
     public static Station getVeloStation(int pos) {
         return stationList.get(pos);

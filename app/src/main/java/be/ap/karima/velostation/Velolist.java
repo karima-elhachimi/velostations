@@ -3,6 +3,7 @@ package be.ap.karima.velostation;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ public class Velolist extends AppCompatActivity {
     public TextView naamTV;
     public MyDataManager dm;
     private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 22;
+    public VeloDatabaseOpenHelper dbOpenHelper;
+
 
 
     @Override
@@ -37,6 +40,9 @@ public class Velolist extends AppCompatActivity {
         setContentView(R.layout.activity_velolist);
 
         dm = MyDataManager.getInstance(this);
+        dbOpenHelper = new VeloDatabaseOpenHelper(this);
+
+
         veloListRV = (RecyclerView) findViewById(R.id.velo_list_recyclerview);
         veloCV = (CardView) findViewById(R.id.velo_cardview);
         naamTV = (TextView)findViewById(R.id.naam_textview);
@@ -44,9 +50,7 @@ public class Velolist extends AppCompatActivity {
         veloListRV.setLayoutManager(veloListLM);
         veloRA = new VeloRecyclerAdaper(this, dm.getStationList());
         veloListRV.setAdapter(veloRA);
-
-
-
+        saveVelosToDB();
 
     }
 
@@ -56,4 +60,18 @@ public class Velolist extends AppCompatActivity {
         super.onResume();
         veloRA.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onDestroy() {
+        dbOpenHelper.close();
+        super.onDestroy();
+    }
+
+    private void saveVelosToDB(){
+        SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
+        for(Station velo : dm.getStationList()) {
+            dbOpenHelper.insertIntoDatabase(db, velo);
+        }
+    }
+
 }
